@@ -1,0 +1,64 @@
+{
+    "results": [
+        {
+            "userNameSet": "a",
+            "userPassword": "a",
+            "userId": -5288709201592890788,
+            "userGender": "a",
+            "userFirstname": "a",
+            "userSurname": "a",
+            "userZipCode": "a",
+            "userCity": "a",
+            "userEmailAddress": "a",
+            "userTelephoneNumber": "a",
+            "userAge": "a",
+            "userAddress": "a",
+            "userCustomer": true
+        },
+        {
+            "userNameSet": "a",
+            "userPassword": "a",
+            "userId": -4937456939388363861,
+            "userGender": "a",
+            "userFirstname": "a",
+            "userSurname": "a",
+            "userZipCode": "a",
+            "userCity": "a",
+            "userEmailAddress": "a",
+            "userTelephoneNumber": "a",
+            "userAge": "a",
+            "userAddress": "a",
+            "userCustomer": true
+        },
+        {
+            "userNameSet": "a",
+            "userPassword": "b",
+            "userId": -1621987698435141046,
+            "userGender": "b",
+            "userFirstname": "b",
+            "userSurname": "b",
+            "userZipCode": "b",
+            "userCity": "b",
+            "userEmailAddress": "b",
+            "userTelephoneNumber": "b",
+            "userAge": "b",
+            "userAddress": "b",
+            "userCustomer": true
+        },
+        {
+            "userNameSet": "b",
+            "userPassword": "b",
+            "userId": 1774075607991421421,
+            "userGender": "b",
+            "userFirstname": "b",
+            "userSurname": "b",
+            "userZipCode": "b",
+            "userCity": "b",
+            "userEmailAddress": "b",
+            "userTelephoneNumber": "b",
+            "userAge": "b",
+            "userAddress": "b",
+            "userCustomer": true
+        }
+    ]
+}

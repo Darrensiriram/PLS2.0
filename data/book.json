@@ -1,0 +1,15 @@
+{
+    "newBook": [
+        {
+            "bookAuthor": "asdf",
+            "bookTitle": "asdf",
+            "bookId": 8476012011110189761,
+            "bookCountry": "asdf",
+            "bookLanguage": "asdf",
+            "bookLink": "asdf",
+            "bookPages": "asdf",
+            "bookYear": "asdf",
+            "bookImageLink": "asdf"
+        }
+    ]
+}
