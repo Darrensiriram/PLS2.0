@@ -1,6 +1,7 @@
 import json
 import controllers.SystemHelper as SystemHelper
 import controllers.JsonHelper as JsonHelper
+import controllers.BookHelper as BookHelper
 
 
 class LoanHelper:
@@ -17,23 +18,27 @@ class LoanHelper:
         print('TODO')
 
     @staticmethod
-    def get_loan_book_user():
-        print('TODO')
+    def get_loan_book_user(user_id):
+        file = 'data/loanList.json'
+        results = []
+        with open(file, 'r') as json_file:
+            data = json.load(json_file)
+            for loan in data['results']:
+                if loan['userId'] == user_id:
+                    results.append(BookHelper.BookHelper.get_book_item(loan['bookId']))
+        return results
 
     @staticmethod
     def set_loan_book_item(book_id, user_id):
         filename = 'data/loanList.json'
         with open(filename, 'r') as json_file:
             data = json.load(json_file)
-
-            temp = data['results']
-
             new_data = {
                 "userId": user_id,
                 "bookId": book_id,
             }
-            temp.append(new_data)
-        JsonHelper.JsonHelper.write_json(temp, filename)
+            data['results'].append(new_data)
+        JsonHelper.JsonHelper.write_json(data, filename)
 
     @staticmethod
     def get_status_loan_book_item(book_id):
@@ -46,9 +51,19 @@ class LoanHelper:
         return False
 
     @staticmethod
-    def return_loan_book_item():
-        print('TODO')
-
+    def return_loan_book_item(book_id, user_id):
+        file = 'data/loanList.json'
+        count = 0
+        with open(file, 'r') as source_file:
+            data = json.load(source_file)
+            for line in data['results']:
+                if line['userId'] == user_id and line['bookId'] == book_id:
+                    del data['results'][count]
+                    JsonHelper.JsonHelper.write_json(data, file)
+                    return True
+                else:
+                    count = count + 1
+        return False
 
     @staticmethod
     def get_search_results(books, user_id, return_book=False):
@@ -64,8 +79,10 @@ class LoanHelper:
                 if not LoanHelper.get_status_loan_book_item(book['bookId']):
                     if SystemHelper.SystemHelper.yes_or_no("Loan this book?"):
                         LoanHelper.set_loan_book_item(book['bookId'], user_id)
+                        SystemHelper.SystemHelper.error("Book correctly lent.", False)
                 else:
-                    input("Book already lent")
+                    input("Book already on lent")
             else:
                 if SystemHelper.SystemHelper.yes_or_no("Return this book?"):
-                    LoanHelper.set_loan_book_item(book['bookId'], user_id)
+                    if LoanHelper.return_loan_book_item(book['bookId'], user_id):
+                        SystemHelper.SystemHelper.error("Book correctly returned.", False)

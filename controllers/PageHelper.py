@@ -18,17 +18,19 @@ class PageHelper:
         cl()
 
     @staticmethod
-    def menu():
+    def menu(dir_path):
         logged_in = 'user' in cache.keys()
         is_customer = logged_in and cache['user']['userCustomer']
         browse_catalog = 'browse_catalog' in cache.keys()
+        data_management = 'data_management' in cache.keys()
 
         PageHelper.clear()
         if browse_catalog:
             print("---------------------------------------------------------------------------")
             print("                   Catalog of the Public library system                    ")
             print("---------------------------------------------------------------------------")
-            print("Enter 0. Leave Catalog")
+            print("Enter 0. Show books")
+            print("Enter 1. Leave catalog")
 
         elif logged_in and is_customer:
             print("---------------------------------------------------------------------------")
@@ -38,6 +40,16 @@ class PageHelper:
             print("Enter 1. Loan a book")
             print("Enter 2. Return a book")
             print("Enter 3. To logout")
+
+        elif logged_in and not is_customer and data_management:
+            print("---------------------------------------------------------------------------")
+            print("                Data management of the Public library system               ")
+            print("---------------------------------------------------------------------------")
+            print("Enter 0. Backup system")
+            print("Enter 1. Restore backup")
+            print("Enter 2. Fill system")
+            print("Enter 3. Empty system")
+            print("Enter 4. Leave data management")
 
         elif logged_in and not is_customer:
             print("---------------------------------------------------------------------------")
@@ -60,16 +72,19 @@ class PageHelper:
             print("Enter 1. To login")
             print("Enter 2. To register")
 
-        PageHelper.menu_controller(logged_in, is_customer, browse_catalog)
+        PageHelper.menu_controller(logged_in, is_customer, browse_catalog, data_management, dir_path)
 
     @staticmethod
-    def menu_controller(logged_in, is_customer, browse_catalog):
+    def menu_controller(logged_in, is_customer, browse_catalog, data_management, dir_path):
         try:
             x = int(input("Select a choice from 1...: "))
             PageHelper.clear()
 
             if browse_catalog:
                 if x == 0:
+                    PageHelper.clear()
+                    BookHelper.BookHelper.get_view_books()
+                elif x == 1:
                     cache.pop('browse_catalog')
 
             elif logged_in and is_customer:
@@ -81,6 +96,17 @@ class PageHelper:
                     PageHelper.return_book()
                 elif x == 3:
                     PageHelper.logout()
+            elif logged_in and not is_customer and data_management:
+                if x == 0:
+                    SystemHelper.SystemHelper.back_up(dir_path)
+                elif x == 1:
+                    SystemHelper.SystemHelper.restore_back_up(dir_path)
+                elif x == 2:
+                    SystemHelper.SystemHelper.fill_system(dir_path)
+                elif x == 3:
+                    SystemHelper.SystemHelper.empty_system(dir_path)
+                elif x == 4:
+                    cache.pop('data_management')
             elif logged_in and not is_customer:
                 if x == 0:
                     cache['browse_catalog'] = True
@@ -95,7 +121,7 @@ class PageHelper:
                 elif x == 5:
                     print("---------------------------------------------------------------------------")
                 elif x == 6:
-                    print("---------------------------------------------------------------------------")
+                    cache['data_management'] = True
                 elif x == 7:
                     PageHelper.logout()
             else:
@@ -117,11 +143,7 @@ class PageHelper:
         password = password if password != "" else str(input("Password: "))
         result = UserHelper.UserHelper.validate_user(username, password)
         if not result:
-            PageHelper.clear()
-            print("---------------------------------------------------------------------------")
-            print("Username and password combination not found.")
-            print("---------------------------------------------------------------------------")
-            PageHelper.login()
+            SystemHelper.SystemHelper.error("Username and password combination not found.")
         else:
             cache['user'] = result
 
@@ -142,7 +164,6 @@ class PageHelper:
         tele_phone_number = str(input("Phone number: "))
         age = str(input("age: "))
         address = str(input("Address: "))
-        customer = str(input("Customer: "))  # checkbox TODO
         user = UserModel.User(name_set, password, gender, firstname, surname, zip_code, city, email_address,
                               tele_phone_number, age, address, True)
 
@@ -151,7 +172,7 @@ class PageHelper:
             PageHelper.login(name_set, password)
         else:
             print("---------------------------------------------------------------------------")
-            print("User already exist")
+            print("User/Username already exist")
             print("---------------------------------------------------------------------------")
             PageHelper.register()
 
@@ -171,3 +192,9 @@ class PageHelper:
     def return_book():
         print("---------------------------------------------------------------------------")
         print("Return book")
+        books = LoanHelper.LoanHelper.get_loan_book_user(cache['user']['userId'])
+        if books:
+            LoanHelper.LoanHelper.get_search_results(books, cache['user']['userId'], True)
+        else:
+            SystemHelper.SystemHelper.error("Sorry you have no returns.")
+

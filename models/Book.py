@@ -1,7 +1,7 @@
 class Book:
-    def __init__(self,bookTitle,bookCountry,bookLangue,bookLink,bookPages,bookYear,bookImageLink,bookAuthor):
-        self.bookId = hash(bookTitle +bookCountry+bookLangue+bookLink+bookPages+bookYear+bookImageLink+bookAuthor)
-        self.bookTitle = bookTitle
+    def __init__(self, book_title,bookCountry,bookLangue,bookLink,bookPages,bookYear,bookImageLink,bookAuthor):
+        self.bookId = hash(book_title +bookCountry+bookLangue+bookLink+bookPages+bookYear+bookImageLink+bookAuthor)
+        self.bookTitle = book_title
         self.bookCountry = bookCountry
         self.bookLanguage = bookLangue
         self.bookLink = bookLink

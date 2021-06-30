@@ -1,5 +1,7 @@
 import json
 from controllers.JsonHelper import JsonHelper
+from controllers.LoanHelper import LoanHelper
+from controllers.SystemHelper import SystemHelper
 
 
 class BookHelper:
@@ -70,3 +72,18 @@ class BookHelper:
                 if line['bookTitle'] in value or line['bookAuthor'] in value or line['bookYear'] in value:
                     temp.append(line)
         return temp
+
+    @staticmethod
+    def get_view_books():
+        data = BookHelper.get_all_book_item()
+
+        print("---------------------------------------------------------------------------")
+        print(f"List of books (Amount: {len(data['newBook'])})")
+
+        for line in data['newBook']:
+            print("---------------------------------------------------------------------------")
+            print(f"Title: {line['bookTitle']}")
+            print(f"Author: {line['bookAuthor']}")
+            print(f"Year: {line['bookYear']}")
+            print(f"Rented: {LoanHelper.get_status_loan_book_item(line['bookId'])}")
+            SystemHelper.press_to_continue()

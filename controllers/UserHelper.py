@@ -18,10 +18,19 @@ class UserHelper:
         return False
 
     @staticmethod
+    def username_exist(file, username):
+        with open(file, 'r') as json_file:
+            data = json.load(json_file)
+            for book in data['results']:
+                if book['userNameSet'] == username:
+                    return True
+        return False
+
+    @staticmethod
     def register_user(user):
         file = 'data/user.json'
 
-        if not UserHelper.user_exist(file, user.userId):
+        if not UserHelper.user_exist(file, user.userId) and not UserHelper.username_exist(file, user.userNameSet):
             with open(file, 'r') as json_file:
                 data = json.load(json_file)
 

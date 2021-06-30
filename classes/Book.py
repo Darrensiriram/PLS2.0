@@ -64,7 +64,3 @@ class Book:
         with open('data/booksset1.json', 'r') as json_file:
                 data = json.load(json_file)
                 print(json.dumps(data, indent=4, sort_keys= True))
-
-
-
-
