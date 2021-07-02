@@ -140,4 +140,4 @@ class SystemHelper:
 
     @staticmethod
     def press_to_continue():
-        input("Enter a key to continue")
+        input("Press enter to continue")

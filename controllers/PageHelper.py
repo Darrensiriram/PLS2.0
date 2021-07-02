@@ -89,7 +89,7 @@ class PageHelper:
                     PageHelper.clear()
                     BookHelper.get_view_books()
                 elif x == 1:
-                    item = input("Please enter a a title of a book: ")
+                    item = input("Please enter a title of a book: ")
                     BookHelper.search_book(item)
                 elif x == 2:
                     cache.pop('browse_catalog')
