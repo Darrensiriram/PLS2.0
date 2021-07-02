@@ -89,6 +89,21 @@
             "userAge": "21",
             "userAddress": "none",
             "userCustomer": true
+        },
+        {
+            "userNameSet": "Darren",
+            "userPassword": "Darren",
+            "userId": -6200836837282383272,
+            "userGender": "Male",
+            "userFirstname": "Darren",
+            "userSurname": "Siriram",
+            "userZipCode": "9990CR",
+            "userCity": "Rotterdam",
+            "userEmailAddress": "None",
+            "userTelephoneNumber": "0612345678",
+            "userAge": "21",
+            "userAddress": "None",
+            "userCustomer": true
         }
     ]
 }
