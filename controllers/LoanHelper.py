@@ -2,6 +2,7 @@ import json
 import controllers.SystemHelper as SystemHelper
 import controllers.JsonHelper as JsonHelper
 import controllers.BookHelper as BookHelper
+import controllers.PageHelper as PageHelper
 
 
 class LoanHelper:
@@ -87,3 +88,25 @@ class LoanHelper:
                 if SystemHelper.SystemHelper.yes_or_no("Return this book?"):
                     if LoanHelper.return_loan_book_item(book['bookId'], user_id):
                         SystemHelper.SystemHelper.error("Book correctly returned.", False)
+
+    @staticmethod
+    def loan_book(user):
+        PageHelper.PageHelper.clear()
+        print("---------------------------------------------------------------------------")
+        search = str(input("Search for book, year or author: "))
+        books = BookHelper.BookHelper.search_book(search)
+        if books:
+            LoanHelper.get_search_results(books, user)
+        else:
+            SystemHelper.SystemHelper.error("Sorry we couldn't find your search, please try again!")
+            LoanHelper.loan_book(user)
+
+    @staticmethod
+    def return_book(user):
+        print("---------------------------------------------------------------------------")
+        print("Return book")
+        books = LoanHelper.get_loan_book_user(user)
+        if books:
+            LoanHelper.get_search_results(books, user, True)
+        else:
+            SystemHelper.SystemHelper.error("Sorry you have no returns.")

@@ -98,9 +98,9 @@ class PageHelper:
                 if x == 0:
                     cache['browse_catalog'] = True
                 elif x == 1:
-                    PageHelper.loan_book()
+                    LoanHelper.loan_book(cache['user']['userId'])
                 elif x == 2:
-                    PageHelper.return_book()
+                    LoanHelper.return_book(cache['user']['userId'])
                 elif x == 3:
                     UserHelper.logout(cache)
             elif logged_in and not is_customer and data_management:
@@ -124,9 +124,9 @@ class PageHelper:
                 elif x == 3:
                     UserHelper.register(cache, False)
                 elif x == 4:
-                    PageHelper.loan_book_librarian()
+                    UserHelper.loan_book_librarian()
                 elif x == 5:
-                    print("---------------------------------------------------------------------------") # TODO print("Enter 5. Return a book from a customer")
+                    UserHelper.return_book_librarian()
                 elif x == 6:
                     BookHelper.show_loan_books()
                 elif x == 7:
@@ -142,43 +142,4 @@ class PageHelper:
                     UserHelper.register(cache)
         except ValueError as e:
             SystemHelper.error("Please input as suggested.")
-
-
-
-    @staticmethod
-    def loan_book():
-        PageHelper.clear()
-        print("---------------------------------------------------------------------------")
-        search = str(input("Search for book, year or author: "))
-        books = BookHelper.search_book(search)
-        if books:
-            LoanHelper.get_search_results(books, cache['user']['userId'])
-        else:
-            SystemHelper.error("Sorry we couldn't find your search, please try again!")
-            PageHelper.loan_book()
-
-    @staticmethod
-    def loan_book_librarian():
-        user = UserHelper.search_user()
-        PageHelper.clear()
-
-        print("---------------------------------------------------------------------------")
-        search = str(input("Search for book, year or author: "))
-        books = BookHelper.search_book(search)
-        if books:
-            LoanHelper.get_search_results(books, user)
-        else:
-            SystemHelper.error("Sorry we couldn't find your search, please try again!")
-            PageHelper.loan_book_librarian()
-
-    @staticmethod
-    def return_book():
-        print("---------------------------------------------------------------------------")
-        print("Return book")
-        books = LoanHelper.get_loan_book_user(cache['user']['userId'])
-        if books:
-            LoanHelper.get_search_results(books, cache['user']['userId'], True)
-        else:
-            SystemHelper.error("Sorry you have no returns.")
-    
 

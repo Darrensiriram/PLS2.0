@@ -3,6 +3,7 @@ import json
 import controllers.JsonHelper as JsonHelper
 import controllers.SystemHelper as SystemHelper
 import controllers.PageHelper as PageHelper
+import controllers.LoanHelper as LoanHelper
 
 import models.User as UserModel
 
@@ -131,7 +132,6 @@ class UserHelper:
         value = str(input("Enter the username of the user: "))
 
         filename = 'data/user.json'
-        temp = []
         with open(filename, 'r') as source_file:
             data = json.load(source_file)
             for line in data['results']:
@@ -139,3 +139,13 @@ class UserHelper:
                     return line['userId']
         SystemHelper.SystemHelper.error("User not found")
         UserHelper.search_user()
+
+    @staticmethod
+    def loan_book_librarian():
+        user = UserHelper.search_user()
+        LoanHelper.LoanHelper.loan_book(user)
+
+    @staticmethod
+    def return_book_librarian():
+        user = UserHelper.search_user()
+        LoanHelper.LoanHelper.return_book(user)
