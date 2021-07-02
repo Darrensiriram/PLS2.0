@@ -70,6 +70,8 @@ class LoanHelper:
     def get_search_results(books, user_id, return_book=False):
         print("---------------------------------------------------------------------------")
         print(f"Amount of results {len(books)}")
+        SystemHelper.SystemHelper.press_to_continue()
+        PageHelper.PageHelper.clear()
         for book in books:
             if not return_book:
                 print("---------------------------------------------------------------------------")
