@@ -136,6 +136,6 @@ class UserHelper:
             data = json.load(source_file)
             for line in data['results']:
                 if line['userNameSet'] in value:
-                   return temp.append(line)
+                    return line['userId']
         SystemHelper.SystemHelper.error("User not found")
         UserHelper.search_user()

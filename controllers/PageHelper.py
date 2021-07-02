@@ -160,13 +160,13 @@ class PageHelper:
     @staticmethod
     def loan_book_librarian():
         user = UserHelper.search_user()
-        print(user)
         PageHelper.clear()
+
         print("---------------------------------------------------------------------------")
         search = str(input("Search for book, year or author: "))
         books = BookHelper.search_book(search)
         if books:
-            LoanHelper.get_search_results(books, cache['user']['userId'])
+            LoanHelper.get_search_results(books, user)
         else:
             SystemHelper.error("Sorry we couldn't find your search, please try again!")
             PageHelper.loan_book()
