@@ -141,7 +141,3 @@ class BookHelper:
                     print(f"BookId: {x['bookTitle']}")
         SystemHelper.SystemHelper.press_to_continue()        
         
-
-
-
-

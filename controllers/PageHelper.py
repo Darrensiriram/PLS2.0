@@ -169,7 +169,7 @@ class PageHelper:
             LoanHelper.get_search_results(books, user)
         else:
             SystemHelper.error("Sorry we couldn't find your search, please try again!")
-            PageHelper.loan_book()
+            PageHelper.loan_book_librarian()
 
     @staticmethod
     def return_book():

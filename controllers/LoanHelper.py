@@ -70,18 +70,19 @@ class LoanHelper:
         print("---------------------------------------------------------------------------")
         print(f"Amount of results {len(books)}")
         for book in books:
-            print("---------------------------------------------------------------------------")
-            print(f"Title: {book['bookTitle']}")
-            print(f"Author: {book['bookAuthor']}")
-            print(f"Year: {book['bookYear']}")
-
             if not return_book:
+                print("---------------------------------------------------------------------------")
+                print(f"Title: {book['bookTitle']}")
+                print(f"Author: {book['bookAuthor']}")
+                print(f"Year: {book['bookYear']}")
+
                 if not LoanHelper.get_status_loan_book_item(book['bookId']):
                     if SystemHelper.SystemHelper.yes_or_no("Loan this book?"):
                         LoanHelper.set_loan_book_item(book['bookId'], user_id)
                         SystemHelper.SystemHelper.error("Book correctly lent.", False)
                 else:
                     input("Book already on lent")
+                    SystemHelper.SystemHelper.press_to_continue()
             else:
                 if SystemHelper.SystemHelper.yes_or_no("Return this book?"):
                     if LoanHelper.return_loan_book_item(book['bookId'], user_id):
