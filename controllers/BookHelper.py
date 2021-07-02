@@ -1,4 +1,5 @@
 import json
+from os import linesep
 import controllers.JsonHelper as JsonHelper
 import controllers.LoanHelper as LoanHelper
 import controllers.SystemHelper as SystemHelper
@@ -91,8 +92,17 @@ class BookHelper:
             data = json.load(source_file)
             for line in data['newBook']:
                 if line['bookTitle'] in value or line['bookAuthor'] in value or line['bookYear'] in value:
+                    print("---------------------------------------------------------------------------")
+                    print("I found ur book: ")
+                    print("---------------------------------------------------------------------------")
+                    print(f"Title: {line['bookTitle']}")
+                    print(f"Author: {line['bookAuthor']}")
+                    print(f"Year: {line['bookYear']}")
                     temp.append(line)
-        return temp
+        if len(temp)==0:
+            print("i am sorry, it seems we cannont find ur book ")
+        SystemHelper.SystemHelper.press_to_continue()
+
 
     @staticmethod
     def get_view_books():
@@ -108,3 +118,27 @@ class BookHelper:
             print(f"Year: {line['bookYear']}")
             print(f"Rented: {LoanHelper.LoanHelper.get_status_loan_book_item(line['bookId'])}")
             SystemHelper.SystemHelper.press_to_continue()
+
+    @staticmethod
+    def get_loan_id():
+        with open('data/loanList.json', 'r') as loanFile:
+            return json.load(loanFile)
+
+    @staticmethod
+    def show_loan_books():
+        data = BookHelper.get_loan_id()
+        bookinfo = BookHelper.get_all_book_item()
+        print("---------------------------------------------------------------------------")
+        print(f"List of books that are currently loaned (Amount: {len(data['results'])})")
+        for line in data['results']:
+            print("---------------------------------------------------------------------------")
+            print(f"BookId: {line['bookId']}")
+            for x in bookinfo['newBook']:
+                if line['bookId'] == x['bookId']:
+                    print(f"BookId: {x['bookTitle']}")
+        SystemHelper.SystemHelper.press_to_continue()        
+        
+
+
+
+

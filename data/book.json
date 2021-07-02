@@ -10,6 +10,17 @@
             "bookPages": "asdf",
             "bookYear": "asdf",
             "bookImageLink": "asdf"
+        },
+        {
+            "bookAuthor": "Darren",
+            "bookTitle": "Darren is king",
+            "bookId": 378838138508161872,
+            "bookCountry": "NL",
+            "bookLanguage": "NL",
+            "bookLink": "none",
+            "bookPages": "200",
+            "bookYear": "1990",
+            "bookImageLink": "None"
         }
     ]
 }

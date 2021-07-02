@@ -88,9 +88,10 @@ class PageHelper:
                 if x == 0:
                     PageHelper.clear()
                     BookHelper.get_view_books()
-                elif x == 2:
-                    print('-----------------------------') # TODO print("Enter 1. Search book")
                 elif x == 1:
+                    item = input("Please enter a a title of a book: ")
+                    BookHelper.search_book(item)
+                elif x == 2:
                     cache.pop('browse_catalog')
 
             elif logged_in and is_customer:
@@ -123,11 +124,11 @@ class PageHelper:
                 elif x == 3:
                     UserHelper.register(cache, False)
                 elif x == 4:
-                    PageHelper.loan_book_librarian() # TODO print("Enter 4. Loan a book to a customer")
+                    PageHelper.loan_book_librarian()
                 elif x == 5:
                     print("---------------------------------------------------------------------------") # TODO print("Enter 5. Return a book from a customer")
                 elif x == 6:
-                    print("---------------------------------------------------------------------------") # TODO print("Enter 6. See the loans of books")
+                    BookHelper.show_loan_books()
                 elif x == 7:
                     cache['data_management'] = True
                 elif x == 8:
@@ -179,3 +180,5 @@ class PageHelper:
             LoanHelper.get_search_results(books, cache['user']['userId'], True)
         else:
             SystemHelper.error("Sorry you have no returns.")
+    
+

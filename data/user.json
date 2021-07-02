@@ -59,6 +59,36 @@
             "userAge": "b",
             "userAddress": "b",
             "userCustomer": false
+        },
+        {
+            "userNameSet": "admin",
+            "userPassword": "admin",
+            "userId": 2848906459098374200,
+            "userGender": "Male",
+            "userFirstname": "asf",
+            "userSurname": "asf",
+            "userZipCode": "asf",
+            "userCity": "asf",
+            "userEmailAddress": "none",
+            "userTelephoneNumber": "none",
+            "userAge": "22",
+            "userAddress": "none",
+            "userCustomer": false
+        },
+        {
+            "userNameSet": "Drizzy",
+            "userPassword": "none",
+            "userId": 5213997857116580028,
+            "userGender": "none",
+            "userFirstname": "none",
+            "userSurname": "none",
+            "userZipCode": "none",
+            "userCity": "none",
+            "userEmailAddress": "none",
+            "userTelephoneNumber": "none",
+            "userAge": "21",
+            "userAddress": "none",
+            "userCustomer": true
         }
     ]
 }
