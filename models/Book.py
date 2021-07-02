@@ -1,11 +1,13 @@
 class Book:
-    def __init__(self,bookTitle,bookCountry,bookLangue,bookLink,bookPages,bookYear,bookImageLink,bookAuthor):
-        self.bookId = hash(bookTitle +bookCountry+bookLangue+bookLink+bookPages+bookYear+bookImageLink+bookAuthor)
-        self.bookTitle = bookTitle
-        self.bookCountry = bookCountry
-        self.bookLanguage = bookLangue
-        self.bookLink = bookLink
-        self.bookPages = bookPages
-        self.bookYear = bookYear
-        self.bookImageLink = bookImageLink
-        self.bookAuthor = bookAuthor
+    def __init__(self, book_title, book_country, book_language, book_link,
+                 book_pages, book_year, book_image_link, book_author):
+        self.bookId = hash(book_title + book_country + book_language + book_link +
+                           book_pages + book_year + book_image_link + book_author)
+        self.bookTitle = book_title
+        self.bookCountry = book_country
+        self.bookLanguage = book_language
+        self.bookLink = book_link
+        self.bookPages = book_pages
+        self.bookYear = book_year
+        self.bookImageLink = book_image_link
+        self.bookAuthor = book_author
