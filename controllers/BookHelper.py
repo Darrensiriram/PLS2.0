@@ -101,6 +101,9 @@ class BookHelper:
                     temp.append(line)
         if len(temp)==0:
             print("i am sorry, it seems we cannont find ur book ")
+        else:
+            return temp
+
         SystemHelper.SystemHelper.press_to_continue()
 
 
