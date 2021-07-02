@@ -1,9 +1,11 @@
 import os
 
-from controllers.UserHelper import UserHelper
+from controllers.PersonHelper import PersonHelper
 from controllers.BookHelper import BookHelper
-from controllers.SystemHelper import SystemHelper
-from controllers.LoanHelper import LoanHelper
+from controllers.PublicLibraryHelper import PublicLibraryHelper
+from controllers.LibrarianHelper import LibrarianHelper
+from controllers.SubscriberHelper import SubscriberHelper
+from controllers.CatalogHelper import CatalogHelper
 
 cache = dict()
 
@@ -86,10 +88,9 @@ class PageHelper:
 
             if browse_catalog:
                 if x == 0:
-                    BookHelper.get_view_books()
+                    CatalogHelper.get_view_books()
                 elif x == 1:
-                    item = input("Please enter a title of a book: ")
-                    BookHelper.search_book(item, True)
+                    CatalogHelper.get_search_book()
                 elif x == 2:
                     cache.pop('browse_catalog')
 
@@ -97,20 +98,20 @@ class PageHelper:
                 if x == 0:
                     cache['browse_catalog'] = True
                 elif x == 1:
-                    LoanHelper.loan_book(cache['user']['userId'])
+                    SubscriberHelper.subscriber_loan_book(cache['user']['userId'])
                 elif x == 2:
-                    LoanHelper.return_book(cache['user']['userId'])
+                    SubscriberHelper.subscriber_rent_book(cache['user']['userId'])
                 elif x == 3:
-                    UserHelper.logout(cache)
+                    PersonHelper.logout(cache)
             elif logged_in and not is_customer and data_management:
                 if x == 0:
-                    SystemHelper.back_up(dir_path)
+                    PublicLibraryHelper.back_up(dir_path)
                 elif x == 1:
-                    SystemHelper.restore_back_up(dir_path)
+                    PublicLibraryHelper.restore_back_up(dir_path)
                 elif x == 2:
-                    SystemHelper.fill_system(dir_path)
+                    PublicLibraryHelper.fill_system(dir_path)
                 elif x == 3:
-                    SystemHelper.empty_system(dir_path)
+                    PublicLibraryHelper.empty_system(dir_path)
                 elif x == 4:
                     cache.pop('data_management')
             elif logged_in and not is_customer:
@@ -119,26 +120,26 @@ class PageHelper:
                 elif x == 1:
                     BookHelper.add_book_item()
                 elif x == 2:
-                    UserHelper.register(cache)
+                    PersonHelper.register(cache)
                 elif x == 3:
-                    UserHelper.register(cache, False)
+                    PersonHelper.register(cache, False)
                 elif x == 4:
-                    UserHelper.loan_book_librarian()
+                    LibrarianHelper.loan_book_librarian()
                 elif x == 5:
-                    UserHelper.return_book_librarian()
+                    LibrarianHelper.return_book_librarian()
                 elif x == 6:
                     BookHelper.show_loan_books()
                 elif x == 7:
                     cache['data_management'] = True
                 elif x == 8:
-                    UserHelper.logout(cache)
+                    PersonHelper.logout(cache)
             else:
                 if x == 0:
                     cache['browse_catalog'] = True
                 elif x == 1:
-                    UserHelper.login(cache)
+                    PersonHelper.login(cache)
                 elif x == 2:
-                    UserHelper.register(cache)
+                    PersonHelper.register(cache)
         except ValueError as e:
-            SystemHelper.error("Please input as suggested.")
+            PublicLibraryHelper.error("Please input as suggested.")
 

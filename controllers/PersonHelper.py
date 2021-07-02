@@ -1,17 +1,14 @@
 import json
 
 import controllers.JsonHelper as JsonHelper
-import controllers.SystemHelper as SystemHelper
+import controllers.PublicLibraryHelper as PublicLibraryHelper
 import controllers.PageHelper as PageHelper
-import controllers.LoanHelper as LoanHelper
+import controllers.LoanItemHelper as LoanItemHelper
 
 import models.User as UserModel
 
 
-class UserHelper:
-    @staticmethod
-    def get_user():
-        print('TODO')
+class PersonHelper:
 
     @staticmethod
     def user_exist(file, user_id):
@@ -35,7 +32,7 @@ class UserHelper:
     def register_user(user):
         file = 'data/user.json'
 
-        if not UserHelper.user_exist(file, user.userId) and not UserHelper.username_exist(file, user.userNameSet):
+        if not PersonHelper.user_exist(file, user.userId) and not PersonHelper.username_exist(file, user.userNameSet):
             with open(file, 'r') as json_file:
                 data = json.load(json_file)
 
@@ -64,10 +61,6 @@ class UserHelper:
             return False
 
     @staticmethod
-    def delete_user():
-        print('TODO')
-
-    @staticmethod
     def validate_user(username, password):
         with open('data/user.json') as json_file:
             data = json.load(json_file)
@@ -83,9 +76,9 @@ class UserHelper:
         print("---------------------------------------------------------------------------")
         username = username if username != "" else str(input("Username: "))
         password = password if password != "" else str(input("Password: "))
-        result = UserHelper.validate_user(username, password)
+        result = PersonHelper.validate_user(username, password)
         if not result:
-            SystemHelper.SystemHelper.error("Username and password combination not found.")
+            PublicLibraryHelper.PublicLibraryHelper.error("Username and password combination not found.")
         else:
             cache['user'] = result
 
@@ -117,13 +110,13 @@ class UserHelper:
                               tele_phone_number, age, address, customer)
 
         PageHelper.PageHelper.clear()
-        if UserHelper.register_user(user):
-            UserHelper.login(cache, name_set, password)
+        if PersonHelper.register_user(user):
+            PersonHelper.login(cache, name_set, password)
         else:
             print("---------------------------------------------------------------------------")
             print("User/Username already exist")
             print("---------------------------------------------------------------------------")
-            UserHelper.register(cache)
+            PersonHelper.register(cache)
 
     @staticmethod
     def search_user():
@@ -141,19 +134,10 @@ class UserHelper:
                     print(f"Username: {line['userNameSet']}")
                     print(f"Firstname: {line['userFirstname']}")
                     print(f"Surname: {line['userSurname']}")
-                    if SystemHelper.SystemHelper.yes_or_no("Select this user?"):
+                    if PublicLibraryHelper.PublicLibraryHelper.yes_or_no("Select this user?"):
                         return line['userId']
-        SystemHelper.SystemHelper.error("User not found")
-        UserHelper.search_user()
+        PublicLibraryHelper.PublicLibraryHelper.error("User not found")
+        PersonHelper.search_user()
 
 
 
-    @staticmethod
-    def loan_book_librarian():
-        user = UserHelper.search_user()
-        LoanHelper.LoanHelper.loan_book(user)
-
-    @staticmethod
-    def return_book_librarian():
-        user = UserHelper.search_user()
-        LoanHelper.LoanHelper.return_book(user)

@@ -1,8 +1,8 @@
 import json
 from os import linesep
 import controllers.JsonHelper as JsonHelper
-import controllers.LoanHelper as LoanHelper
-import controllers.SystemHelper as SystemHelper
+import controllers.LoanItemHelper as LoanItemHelper
+import controllers.PublicLibraryHelper as PublicLibraryHelper
 import controllers.PageHelper as PageHelper
 
 import models.Book as BookModel
@@ -10,22 +10,24 @@ import models.Book as BookModel
 
 class BookHelper:
 
-
     @staticmethod
-    def add_book_item():
+    def add_book_item(nb=""):
         PageHelper.PageHelper.clear()
-        print("---------------------------------------------------------------------------")
-        print("Add here your book")
-        book_title = str(input("Title: "))
-        book_country = str(input("Country: "))
-        book_language = str(input("Language: "))
-        book_link = str(input("Link: "))
-        book_pages = str(input("Pages: "))
-        book_year = str(input("Year: "))
-        book_image_link = str(input("Image link: "))
-        book_author = str(input("Book author: "))
-        new_book = BookModel.Book(book_title, book_country, book_language, book_link, book_pages, book_year,
-                                  book_image_link, book_author)
+        if nb=="":
+            print("---------------------------------------------------------------------------")
+            print("Add here your book")
+            book_title = str(input("Title: "))
+            book_country = str(input("Country: "))
+            book_language = str(input("Language: "))
+            book_link = str(input("Link: "))
+            book_pages = str(input("Pages: "))
+            book_year = str(input("Year: "))
+            book_image_link = str(input("Image link: "))
+            book_author = str(input("Book author: "))
+            new_book = BookModel.Book(book_title, book_country, book_language, book_link, book_pages, book_year,
+                                      book_image_link, book_author)
+        else:
+            new_book = nb
 
         result = False
         file = 'data/book.json'
@@ -55,7 +57,7 @@ class BookHelper:
             print('Book ' + new_book.bookTitle + ' Has been added')
         else:
             print('This book is already initialized')
-        SystemHelper.SystemHelper.press_to_continue()
+        PublicLibraryHelper.PublicLibraryHelper.press_to_continue()
 
     @staticmethod
     def delete_book_item(id):
@@ -105,24 +107,9 @@ class BookHelper:
             if not search:
                 return temp
 
-        SystemHelper.SystemHelper.press_to_continue()
+        PublicLibraryHelper.PublicLibraryHelper.press_to_continue()
 
 
-    @staticmethod
-    def get_view_books():
-        PageHelper.PageHelper.clear()
-        data = BookHelper.get_all_book_item()
-
-        print("---------------------------------------------------------------------------")
-        print(f"List of books (Amount: {len(data['newBook'])})")
-
-        for line in data['newBook']:
-            print("---------------------------------------------------------------------------")
-            print(f"Title: {line['bookTitle']}")
-            print(f"Author: {line['bookAuthor']}")
-            print(f"Year: {line['bookYear']}")
-            print(f"Rented: {LoanHelper.LoanHelper.get_status_loan_book_item(line['bookId'])}")
-            SystemHelper.SystemHelper.press_to_continue()
 
     @staticmethod
     def get_loan_id():
@@ -141,5 +128,5 @@ class BookHelper:
             for x in bookinfo['newBook']:
                 if line['bookId'] == x['bookId']:
                     print(f"BookId: {x['bookTitle']}")
-        SystemHelper.SystemHelper.press_to_continue()        
-        
+        PublicLibraryHelper.PublicLibraryHelper.press_to_continue()
+

@@ -1,22 +1,11 @@
 import json
-import controllers.SystemHelper as SystemHelper
+import controllers.PublicLibraryHelper as PublicLibraryHelper
 import controllers.JsonHelper as JsonHelper
 import controllers.BookHelper as BookHelper
 import controllers.PageHelper as PageHelper
 
 
-class LoanHelper:
-    @staticmethod
-    def get_available_loan_book():
-        print('TODO')
-
-    @staticmethod
-    def get_available_loan_book_item():
-        print('TODO')
-
-    @staticmethod
-    def get_loan_book_():
-        print('TODO')
+class LoanItemHelper:
 
     @staticmethod
     def get_loan_book_user(user_id):
@@ -70,7 +59,7 @@ class LoanHelper:
     def get_search_results(books, user_id, return_book=False):
         print("---------------------------------------------------------------------------")
         print(f"Amount of results {len(books)}")
-        SystemHelper.SystemHelper.press_to_continue()
+        PublicLibraryHelper.PublicLibraryHelper.press_to_continue()
         PageHelper.PageHelper.clear()
         for book in books:
             if not return_book:
@@ -80,16 +69,16 @@ class LoanHelper:
                 print(f"Author: {book['bookAuthor']}")
                 print(f"Year: {book['bookYear']}")
 
-                if not LoanHelper.get_status_loan_book_item(book['bookId']):
-                    if SystemHelper.SystemHelper.yes_or_no("Loan this book?"):
-                        LoanHelper.set_loan_book_item(book['bookId'], user_id)
-                        SystemHelper.SystemHelper.error("Book correctly lent.", False)
+                if not LoanItemHelper.get_status_loan_book_item(book['bookId']):
+                    if PublicLibraryHelper.PublicLibraryHelper.yes_or_no("Loan this book?"):
+                        LoanItemHelper.set_loan_book_item(book['bookId'], user_id)
+                        PublicLibraryHelper.PublicLibraryHelper.error("Book correctly lent.", False)
                 else:
                     input("Book already on lent")
             else:
-                if SystemHelper.SystemHelper.yes_or_no("Return this book?"):
-                    if LoanHelper.return_loan_book_item(book['bookId'], user_id):
-                        SystemHelper.SystemHelper.error("Book correctly returned.", False)
+                if PublicLibraryHelper.PublicLibraryHelper.yes_or_no("Return this book?"):
+                    if LoanItemHelper.return_loan_book_item(book['bookId'], user_id):
+                        PublicLibraryHelper.PublicLibraryHelper.error("Book correctly returned.", False)
 
     @staticmethod
     def loan_book(user):
@@ -98,17 +87,17 @@ class LoanHelper:
         search = str(input("Search for book, year or author: "))
         books = BookHelper.BookHelper.search_book(search)
         if books:
-            LoanHelper.get_search_results(books, user)
+            LoanItemHelper.get_search_results(books, user)
         else:
-            SystemHelper.SystemHelper.error("Sorry we couldn't find your search, please try again!")
-            LoanHelper.loan_book(user)
+            PublicLibraryHelper.PublicLibraryHelper.error("Sorry we couldn't find your search, please try again!")
+            LoanItemHelper.loan_book(user)
 
     @staticmethod
     def return_book(user):
         print("---------------------------------------------------------------------------")
         print("Return book")
-        books = LoanHelper.get_loan_book_user(user)
+        books = LoanItemHelper.get_loan_book_user(user)
         if books:
-            LoanHelper.get_search_results(books, user, True)
+            LoanItemHelper.get_search_results(books, user, True)
         else:
-            SystemHelper.SystemHelper.error("Sorry you have no returns.")
+            PublicLibraryHelper.PublicLibraryHelper.error("Sorry you have no returns.")

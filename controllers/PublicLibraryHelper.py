@@ -1,5 +1,5 @@
 import controllers.PageHelper as PageHelper
-import controllers.UserHelper as UserHelper
+import controllers.PersonHelper as PersonHelper
 import controllers.BookHelper as BookHelper
 import models.Book as Book
 import models.User as UserModel
@@ -8,7 +8,7 @@ import csv
 import os
 
 
-class SystemHelper:
+class PublicLibraryHelper:
     @staticmethod
     def yes_or_no(question):
         while "the answer is invalid":
@@ -27,7 +27,7 @@ class SystemHelper:
             PageHelper.PageHelper.clear()
         print("---------------------------------------------------------------------------")
         print(text)
-        SystemHelper.press_to_continue()
+        PublicLibraryHelper.press_to_continue()
 
     @staticmethod
     def back_up(dir_path):
@@ -51,7 +51,7 @@ class SystemHelper:
             json.dump(data, json_file, indent=4)
 
         print("Backup completed")
-        SystemHelper.press_to_continue()
+        PublicLibraryHelper.press_to_continue()
 
     @staticmethod
     def restore_back_up(dir_path):
@@ -77,7 +77,7 @@ class SystemHelper:
             print("Backups has been restored")
         else:
             print("No backups available")
-        SystemHelper.press_to_continue()
+        PublicLibraryHelper.press_to_continue()
 
     @staticmethod
     def fill_system(dir_path):
@@ -109,11 +109,11 @@ class SystemHelper:
                                       str(0),
                                       str(row['StreetAddress']),
                                       True)
-                UserHelper.UserHelper.register_user(user)
+                PersonHelper.PersonHelper.register_user(user)
         print("---------------------------------------------------------------------------")
         print("The system has been filled")
         print("***For the new users from the import they use there givenName as password")
-        SystemHelper.press_to_continue()
+        PublicLibraryHelper.press_to_continue()
 
     @staticmethod
     def empty_system(dir_path):
@@ -136,7 +136,7 @@ class SystemHelper:
             json.dump(data, json_file, indent=4)
         print("---------------------------------------------------------------------------")
         print("The system is now emptied")
-        SystemHelper.press_to_continue()
+        PublicLibraryHelper.press_to_continue()
 
     @staticmethod
     def press_to_continue():
