@@ -85,7 +85,7 @@ class BookHelper:
             return json.load(source_file)
 
     @staticmethod
-    def search_book(value):
+    def search_book(value, search=False):
         filename = 'data/book.json'
         temp = []
         with open(filename, 'r') as source_file:
@@ -102,13 +102,15 @@ class BookHelper:
         if len(temp)==0:
             print("i am sorry, it seems we cannont find ur book ")
         else:
-            return temp
+            if not search:
+                return temp
 
         SystemHelper.SystemHelper.press_to_continue()
 
 
     @staticmethod
     def get_view_books():
+        PageHelper.PageHelper.clear()
         data = BookHelper.get_all_book_item()
 
         print("---------------------------------------------------------------------------")

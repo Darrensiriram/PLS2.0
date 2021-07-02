@@ -136,9 +136,17 @@ class UserHelper:
             data = json.load(source_file)
             for line in data['results']:
                 if line['userNameSet'] in value:
-                    return line['userId']
+                    PageHelper.PageHelper.clear()
+                    print("---------------------------------------------------------------------------")
+                    print(f"Username: {line['userNameSet']}")
+                    print(f"Firstname: {line['userFirstname']}")
+                    print(f"Surname: {line['userSurname']}")
+                    if SystemHelper.SystemHelper.yes_or_no("Select this user?"):
+                        return line['userId']
         SystemHelper.SystemHelper.error("User not found")
         UserHelper.search_user()
+
+
 
     @staticmethod
     def loan_book_librarian():

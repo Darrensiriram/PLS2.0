@@ -74,6 +74,7 @@ class LoanHelper:
         PageHelper.PageHelper.clear()
         for book in books:
             if not return_book:
+                PageHelper.PageHelper.clear()
                 print("---------------------------------------------------------------------------")
                 print(f"Title: {book['bookTitle']}")
                 print(f"Author: {book['bookAuthor']}")
@@ -85,7 +86,6 @@ class LoanHelper:
                         SystemHelper.SystemHelper.error("Book correctly lent.", False)
                 else:
                     input("Book already on lent")
-                    SystemHelper.SystemHelper.press_to_continue()
             else:
                 if SystemHelper.SystemHelper.yes_or_no("Return this book?"):
                     if LoanHelper.return_loan_book_item(book['bookId'], user_id):
