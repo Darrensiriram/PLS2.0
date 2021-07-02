@@ -89,7 +89,7 @@ class PageHelper:
                     PageHelper.clear()
                     BookHelper.get_view_books()
                 elif x == 2:
-                    print('-----------------------------') #todo
+                    print('-----------------------------') # TODO print("Enter 1. Search book")
                 elif x == 1:
                     cache.pop('browse_catalog')
 
@@ -114,9 +114,6 @@ class PageHelper:
                 elif x == 4:
                     cache.pop('data_management')
             elif logged_in and not is_customer:
-                print("Enter 4. Loan a book to a customer")
-                print("Enter 5. Return a book from a customer")
-                print("Enter 6. See the loans of books")
                 if x == 0:
                     cache['browse_catalog'] = True
                 elif x == 1:
@@ -126,11 +123,11 @@ class PageHelper:
                 elif x == 3:
                     UserHelper.register(cache, False)
                 elif x == 4:
-                    PageHelper.loan_book_librarian()
+                    PageHelper.loan_book_librarian() # TODO print("Enter 4. Loan a book to a customer")
                 elif x == 5:
-                    print("---------------------------------------------------------------------------")
+                    print("---------------------------------------------------------------------------") # TODO print("Enter 5. Return a book from a customer")
                 elif x == 6:
-                    print("---------------------------------------------------------------------------")
+                    print("---------------------------------------------------------------------------") # TODO print("Enter 6. See the loans of books")
                 elif x == 7:
                     cache['data_management'] = True
                 elif x == 8:
